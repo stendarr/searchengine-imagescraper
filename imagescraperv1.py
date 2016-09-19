@@ -47,7 +47,7 @@ def getImages():
     if choice == "b":
         search_url = 'http://www.bing.com/images/search?q='+search_term
     if choice == "y":
-        pass
+        search_url = 'https://de.images.search.yahoo.com/search/images?p='+search_term
 
     #just checking the url for mistakes
     print("Scraping following URL:\n"+search_url+"\n")
@@ -65,7 +65,7 @@ def getImages():
     if choice == "b":
         link_containers = soup.findAll("a", attrs={"m": True})
     if choice == "y":
-        pass
+        link_containers = soup.findAll("li", { "class" : "ld " })
 
     #extracting every link container after setting counters to zero
     link_counter = 0
@@ -81,7 +81,9 @@ def getImages():
                 link_container = str(link_container).partition('",imgurl:"')[-1]
                 link_container = link_container.rpartition('",tid:"')[0]
             if choice == "y":
-                pass
+                link_container = str(link_container).partition(',"iurl":"')[-1]
+                link_container = link_container.rpartition('","ith"')[0].replace("\/", "/")
+                
             link_container = str(link_container)
 
             #writing links to file if wanted
@@ -113,7 +115,7 @@ def getImages():
 while True:
     getImages()
     #want to quit?
-    if input("Press <Enter> to continue, n to quit: ").lower() in no:
+    if input("Press <Enter> to continue, <q> to quit: ").lower()=="q":
         break
 
 
