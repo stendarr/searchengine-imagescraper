@@ -108,19 +108,20 @@ def getImages():
     print("\nlinks found:", link_counter)
     print("\nexceptions thrown:", exception_counter)
 
-    
-                
 
+#looped program until quit
 while True:
-    
     getImages()
-
+    #want to quit?
     if input("Press <Enter> to continue, n to quit: ").lower() in no:
         break
 
 
 
 
+
+
+#everything ran smoothly, more or less
 input("\n\n--------------------\n   END OF PROGRAM") 
 
     
