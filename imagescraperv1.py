@@ -37,8 +37,8 @@ no = ['n','no']
 def getImages():
     #choosing the engine
     choice = ""
-    while choice not in ["g","b","y","all"]:
-        choice = input("Which engine do you want to use? (g/b/y/all) ")
+    while choice not in ["g","b","y"]:
+        choice = input("Which engine do you want to use? (g/b/y) ")
     if choice == "g":
         search_engine = "Google"
     if choice == "b":
@@ -52,19 +52,26 @@ def getImages():
     #asking for maximum number of links
     link_limit = int(input("Enter link limit: "))
 
-    #save links to text file question
+    #save links to text file, question
     save_links_yn = str(input("Write links to a file? (y/n) ")).lower()
     if save_links_yn in yes:
         filename_links = str(input("How should the text file be named? "))
+        if filename_links == '':
+            print('Filename cannot be empty, file will be named "links"')
+            filename_links = 'links'
 
     #save picturse as, question
     download_pictures_yn = str(input("Download pictures? (y/n) ")).lower()
     if download_pictures_yn in yes:
         filename_pictures = str(input("How should the image files be named? "))
 
+    #save links causing errors, question
     save_error_links_yn = str(input("Save links causing errors? (y/n) ")).lower()
     if save_error_links_yn in yes:
         filename_errors = str(input("How should the text file be named? "))
+        if filename_errors == '':
+            print('Filename cannot be empty, file will be named "errors"')
+            filename_errors = 'errors'
 
     #setting search url according to engine choice
     if choice == "g":
@@ -126,7 +133,8 @@ def getImages():
         except IOError:
             print("Error with:",link_container)
             exception_counter += 1
-            link_counter -= 1
+            if link_counter != 0:
+                link_counter -= 1
 
             #write error links to file if wanted
             if save_error_links_yn in yes:
